@@ -11,5 +11,8 @@ def createMatrix(file):
     
 
 mat1 = createMatrix('maze_1.txt')
+mat2 = createMatrix('maze_2.txt')
+mat3 = createMatrix('maze_3.txt')
+
 
 
