@@ -6,7 +6,7 @@ def createMatrix(file):
 
     for line in lines:
         mat.append([c for c in line])
-
+    
     return mat
     
 
