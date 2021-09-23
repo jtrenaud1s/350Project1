@@ -5,8 +5,8 @@ def createMatrix(file):
     mat = []
 
     for line in lines:
-        mat.append([c for c in line.split()])
-
+        mat.append([c for c in line])
+    
     return mat
     
 
