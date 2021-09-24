@@ -33,7 +33,6 @@ def createGraph(mat):
                 if node not in graph:
                     graph[node] = []
 
-
                 directions = {
                     "L": (0, -2, 0, -1),
                     "R": (0, 2, 0, 1),
@@ -76,4 +75,3 @@ s3, e3 = getStartEnd(mat3)
 graph1 = createGraph(mat1)
 graph2 = createGraph(mat2)
 graph3 = createGraph(mat3)
-
