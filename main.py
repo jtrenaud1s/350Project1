@@ -77,17 +77,16 @@ graph1 = createGraph(mat1)
 graph2 = createGraph(mat2)
 graph3 = createGraph(mat3)
 
-def print_matrix(maze):
+def get_maze(maze):
     lines = [''.join(line) for line in maze]
-    print(''.join(lines))
+    return ''.join(lines)
 
-def print_maze(graph, path, maze):
+def print_maze(path, graph, maze):
     maze = copy.deepcopy(maze)
-    print(path)
+    output = ' -> '.join(path) + "\n"
     while len(path) > 1:
         second = path.pop()
         first = path[-1]
-
         connection = get_connection(graph, first, second)
 
         (y, x) = connection[2]
@@ -96,28 +95,30 @@ def print_maze(graph, path, maze):
         maze[y][x] = character
 
     
-    print_matrix(maze)
+    return output + get_maze(maze) + "\n\n"
+
+    
 
 print("DFS MAZE 1")
-result_dfs = dfs(graph1, 'A', 'U')
-print_maze(graph1, result_dfs, mat1)
+result_dfs = dfs(graph1, 'A', 'U', print_maze, mat1, "dfs1.txt")
+
 
 print("BFS MAZE 1")
-result_bfs = bfs(graph1, 'A', 'U')
-print_maze(graph1, result_bfs, mat1)
+result_bfs = bfs(graph1, 'A', 'U', print_maze, mat1, "bfs1.txt")
+
 
 print("DFS MAZE 2")
-result_dfs = dfs(graph2, 'E', 'P')
-print_maze(graph2, result_dfs, mat2)
+result_dfs = dfs(graph2, 'E', 'P', print_maze, mat2, "dfs2.txt")
+
 
 print("BFS MAZE 2")
-result_bfs = bfs(graph2, 'E', 'P')
-print_maze(graph2, result_bfs, mat2)
+result_bfs = bfs(graph2, 'E', 'P', print_maze, mat2, "bfs2.txt")
+
 
 print("DFS MAZE 3")
-result_dfs = dfs(graph3, 'K', 'X')
-print_maze(graph3, result_dfs, mat3)
+result_dfs = dfs(graph3, 'K', 'X', print_maze, mat3, "dfs3.txt")
+
 
 print("BFS MAZE 3")
-result_bfs = bfs(graph3, 'K', 'X')
-print_maze(graph3, result_bfs, mat3)
+result_bfs = bfs(graph3, 'K', 'X', print_maze, mat3, "bfs3.txt")
+
