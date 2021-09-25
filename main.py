@@ -40,6 +40,8 @@ def createGraph(mat):
                     "U": (-2, 0, -1, 0),
                     "D": (2, 0, 1, 0),
 
+                    # y change, x change, y for dash, x for dash
+
                 }
 
                 for item in directions:
