@@ -1,6 +1,7 @@
 import copy
+import pprint
 
-def dfs(graph, start_node, end_node, step):
+def dfs(graph, start_node, end_node):
 
   """ Run a DFS search on the maze and run the step function at the end of each iteration. Returns the successful path stack
   :type graph: dict()
@@ -20,29 +21,26 @@ def dfs(graph, start_node, end_node, step):
   # All the nodes we've already looked at
   seen = []
   # All the nodes that comprise the path we're currently on
-  stack = [start_node, [start_node]]
+  stack = [(start_node, [start_node])]
 
   # While there are still nodes to look at
   while len(stack):
-    [current, path] = stack.pop()
+    (current, path) = stack.pop()
 
-    # run the step function with the current path
-    step(copy.deepcopy(path))
     if current not in seen:
       if current == end_node:
         return path
       
       seen.append(current)
       # Get all available connections and sort them alphabetically by node ID
-      available = sorted(graph[start_node], key=lambda x: x[0])
-
+      available = sorted(graph[current], key=lambda x: x[0])
       # Get a list of all available candidate nodes that haven't been seen yet
       candidates = [candidate[0] for candidate in available if candidate[0] not in seen]
       for candidate in candidates:
-        stack.append([current, path + [candidate]])
+        stack.append((candidate, path + [candidate]))
 
  
-def bfs(graph, start_node, end_node, step):
+def bfs(graph, start_node, end_node):
 
   """ Run a DFS search on the maze and run the step function at the end of each iteration. Returns the successful path stack
   :type graph: dict()
@@ -72,14 +70,25 @@ def bfs(graph, start_node, end_node, step):
     # Get the last node in the current path
     current_node = current_path[-1]
 
-    # Do some output with the path
-    step(copy.deepcopy(current_path))
-
     # path found
     if current_node == end_node:
         return current_path
     
+    available = sorted(graph[current_node], key=lambda x: x[0])
+
+    # Get a list of all available candidate nodes
+    candidates = [candidate[0] for candidate in available]
+
     # Create a new path for each of the candidate nodes and append those paths to the queue
-    for candidate in graph[current_node]:
-      new_path = current_path + [candidate]
-      paths_queue.append(new_path)
+    for candidate in candidates:
+      paths_queue.append(current_path + [candidate])
+
+
+
+def get_connection(graph, first, second):
+  candidate = [g for g in graph[first] if g[0] == second]
+
+  if candidate:
+    return candidate[0]
+
+  return None
