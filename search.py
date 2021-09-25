@@ -1,4 +1,5 @@
 import copy
+from maze import write
 import pprint
 
 def dfs(graph, start_node, end_node, step, args, filename):
@@ -91,15 +92,3 @@ def bfs(graph, start_node, end_node, step, args, filename):
     # Create a new path for each of the candidate nodes and append those paths to the queue
     for candidate in candidates:
       paths_queue.append(current_path + [candidate])
-
-def write(filename, out):
-  with open(filename, "w") as fp:
-    fp.write(out)
-
-def get_connection(graph, first, second):
-  candidate = [g for g in graph[first] if g[0] == second]
-
-  if candidate:
-    return candidate[0]
-
-  return None
