@@ -34,33 +34,32 @@ def createGraph(mat):
                     graph[node] = []
 
 
-                try:
-                    if ( str.isalpha(mat[line][char-2])):
-                        graph[node].append( (mat[line][char-2], 'L' ))
+                directions = {
+                    "L": (0, -2, 0, -1),
+                    "R": (0, 2, 0, 1),
+                    "U": (-2, 0, -1, 0),
+                    "D": (2, 0, 1, 0),
 
-                except:
-                    pass
+                }
 
-                try:
-                    if ( str.isalpha( mat[line][char+2])    ):
-                        graph[node].append( (mat[line][char+2], 'R' ))
-                except:
-                    pass
-
-                try:
-                    if ( str.isalpha( mat[line-2][char])    ):
-                        if (mat[line-1][char] != '-'):
-                            graph[node].append( (mat[line-2][char], 'U' ))
-                except:
-                    pass
+                for item in directions:
+                    dir = item
+                    data = directions[item]
 
 
-                try:
-                    if ( str.isalpha( mat[line+2][char])    ):
-                        if (mat[line+1][char] != '-'):
-                            graph[node].append( (mat[line+2][char], 'D' ))
-                except:
-                    pass
+                    try:
+                        if ( str.isalpha(mat[line + data[0]][char + data[1]] ) ):
+                            if (dir != "U" and dir != "D"):
+                                graph[node].append(     (mat[line + data[0] ][char + data[1] ], dir, (line +data[2], char + data[3]))      )
+                            elif (dir == "U"):
+                                if (mat[line-1][char] != '-'):
+                                    graph[node].append(     (mat[line + data[0] ][char + data[1] ], dir, (line + data[2], char + data[3]))      )
+
+                            elif (dir == "D"):
+                                if (mat[line+1][char] != '-'):
+                                    graph[node].append(     (mat[line + data[0] ][char + data[1] ], dir, (line + data[2], char + data[3]))      )        
+                    except:
+                        pass
 
     return graph
 
