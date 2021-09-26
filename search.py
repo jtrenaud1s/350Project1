@@ -1,6 +1,5 @@
 import copy
 from maze import write
-import pprint
 
 def dfs(graph, start_node, end_node, step, args, filename):
 
