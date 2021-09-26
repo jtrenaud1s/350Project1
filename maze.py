@@ -1,5 +1,5 @@
 import copy
-from graph import get_connection
+from graph import findNodeByLocation, get_connection
 
 def createMatrix(file):
     file = open(file, 'r')
@@ -21,13 +21,10 @@ def getStartEnd(mat, graph):
                 if (char == 0):
                     start = (line, char+2)
                 else:
-                    end = (line,char-2)
-
-    for item in graph:
-        if item.location == start:
-            start = item
-        elif item.location == end:
-            end = item
+                    end = (line, char-2)
+    
+    start = findNodeByLocation(graph, start)
+    end = findNodeByLocation(graph, end)
 
 
     return start, end 
@@ -40,14 +37,14 @@ def get_maze_str(maze):
 def get_maze(path, graph, maze):
     maze = copy.deepcopy(maze)
     output = ' -> '.join([p.letter for p in path]) + "\n"
+    print(path)
     while len(path) > 1:
         second = path.pop()
         first = path[-1]
+        print(second)
 
-        print("YO: ", [first])
-        print("YO: 2nd", [second])
-
-        connection = get_connection(graph, first, second)
+        connection = [g for g in graph[first] if g[0] == second][0]
+        print("CONNECTION", connection)
 
         (y, x) = connection[1]
         character = connection[2]

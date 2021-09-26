@@ -86,7 +86,7 @@ def bfs(graph, start_node, end_node, step, args, filename):
       write(filename, output)
       return current_path
     
-    available = sorted(graph[current_node], key=lambda x: x[0])
+    available = sorted(graph[current_node], key=lambda x: x[0].letter)
 
     # Get a list of all available candidate nodes
     candidates = [candidate[0] for candidate in available if candidate[0] not in seen]

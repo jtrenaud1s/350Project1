@@ -3,13 +3,14 @@
 from search import bfs, dfs
 from graph import createGraph
 from maze import createMatrix, get_maze, getStartEnd
+import pprint
 
 def run_maze(filename):
     matrix = createMatrix('input/' + filename)
     graph = createGraph(matrix)
 
     for node, children in graph.items():
-        print([node], ": ", [children])
+        print(node, ": ", repr(children))
     start, end = getStartEnd(matrix, graph)
 
     print("Start: " + str(start))
