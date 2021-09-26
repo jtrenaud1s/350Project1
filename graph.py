@@ -1,9 +1,19 @@
+class Node:
+  def __init__(self, letter, location,):
+    self.letter = letter
+    self.location = location
+
+  def __str__(self):
+    return (str(self.letter) +": " +  str(self.location[0]) + "," + str(self.location[1]))
+
+
 def createGraph(mat):
   graph = {}
   for line in range(len(mat)):
     for char in range(len(mat[line])):
       if (str.isalpha(mat[line][char])):
-        node  = mat[line][char]
+        letter = mat[line][char]
+        node  = Node(letter, (line, char))
 
         if node not in graph:
           graph[node] = []
@@ -23,13 +33,19 @@ def createGraph(mat):
           try:
             if ( str.isalpha(mat[line + data[0]][char + data[1]] ) ):
               if (dir != "U" and dir != "D"):
-                graph[node].append((mat[line + data[0] ][char + data[1] ], dir, (line + data[2], char + data[3]), "-"))
+                letter = mat[line + data[0]][char + data[1]]
+                temp = Node(letter, (line+data[0], char+data[1]))
+                graph[node].append( (temp, (line+data[2], char +data[3]), '-'))
               elif (dir == "U"):
                 if (mat[line-1][char] != '-'):
-                  graph[node].append((mat[line + data[0] ][char + data[1] ], dir, (line + data[2], char + data[3]), "|"))
+                  letter = mat[line + data[0]][char + data[1]]
+                  temp = Node(letter, (line+data[0], char+data[1]))
+                  graph[node].append((temp, (line+data[2], char +data[3]), '|'))
               elif (dir == "D"):
                 if (mat[line+1][char] != '-'):
-                  graph[node].append((mat[line + data[0] ][char + data[1] ], dir, (line + data[2], char + data[3]), "|"))
+                  letter = mat[line + data[0]][char + data[1]]
+                  temp = Node(letter, (line+data[0], char+data[1]))
+                  graph[node].append(    (temp, (line+data[2], char +data[3]), '|')     )
           except:
             pass
 
