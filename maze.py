@@ -37,14 +37,11 @@ def get_maze_str(maze):
 def get_maze(path, graph, maze):
     maze = copy.deepcopy(maze)
     output = ' -> '.join([p.letter for p in path]) + "\n"
-    print(path)
     while len(path) > 1:
         second = path.pop()
         first = path[-1]
-        print(second)
 
         connection = [g for g in graph[first] if g[0] == second][0]
-        print("CONNECTION", connection)
 
         (y, x) = connection[1]
         character = connection[2]

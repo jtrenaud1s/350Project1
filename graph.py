@@ -57,10 +57,7 @@ def createGraph(mat):
               if (dir == "L" or dir == "R"):
                 node_location = (line + data[0], char + data[1])
                 connection_location = (line + data[2], char + data[3])
-                if letter == 'C':
-                  print(node_location)
                 letter = mat[node_location[0]][node_location[1]]
-
                 temp = Node(letter, node_location)
 
                 # if child not already in graph keys
@@ -70,6 +67,7 @@ def createGraph(mat):
                 else:
                   graph[node].append( (temp, connection_location, '-'))
                   graph[temp] = []
+
               elif (dir == "U"):
                 if (mat[line-1][char] != '-'):
                   node_location = (line + data[0], char + data[1])
@@ -82,6 +80,7 @@ def createGraph(mat):
                   else:
                     graph[node].append( (temp, connection_location, '|'))
                     graph[temp] = []
+
               elif (dir == "D"):
                 if (mat[line+1][char] != '-'):
                   node_location = (line + data[0], char + data[1])
@@ -94,6 +93,7 @@ def createGraph(mat):
                   else:
                     graph[node].append( (temp, connection_location, '|'))
                     graph[temp] = []
+
           except:
             pass
 
@@ -101,12 +101,7 @@ def createGraph(mat):
   return graph
 
 def get_connection(graph, first, second):
-  print(graph[first])
-  print(graph[second])
   candidate = [g for g in graph[first] if g[0] is second]
-
-  print(candidate)
-
   if candidate:
     return candidate[0]
 
