@@ -31,7 +31,6 @@ def dfs(graph, start_node, end_node, step, args, filename):
   while len(stack):
     (current, path) = stack.pop()
     #full_path.append(current)
-    print("path: ", path[0])
     output += step(copy.copy(path), graph, args)
     if current not in seen:
       
@@ -41,7 +40,6 @@ def dfs(graph, start_node, end_node, step, args, filename):
       
       seen.append(current)
       # Get all available connections and sort them alphabetically by node ID
-      print("Current: " + str(current))
       available = sorted(graph[current], key=lambda x: x[0].letter, reverse=True)
       # Get a list of all available candidate nodes that haven't been seen yet
       candidates = [candidate[0] for candidate in available if candidate[0] not in seen]
