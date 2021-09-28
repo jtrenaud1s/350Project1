@@ -23,26 +23,33 @@ def dfs(graph, start_node, end_node, step, args, filename):
   # All the nodes that comprise the path we're currently on
   stack = [(start_node, [start_node])]
 
+  #full_path = []
+
   output = ""
 
   # While there are still nodes to look at
   while len(stack):
     (current, path) = stack.pop()
+    #full_path.append(current)
     print("path: ", path[0])
-    output += step([p for p in path], graph, args)
+    output += step(copy.copy(path), graph, args)
     if current not in seen:
-      if current == end_node:
-        write(filename, output)
-        return path
+      
+      # if current == end_node:
+      #   write(filename, output)
+      #   return path
       
       seen.append(current)
       # Get all available connections and sort them alphabetically by node ID
       print("Current: " + str(current))
-      available = sorted(graph[current], key=lambda x: x[0].letter)
+      available = sorted(graph[current], key=lambda x: x[0].letter, reverse=True)
       # Get a list of all available candidate nodes that haven't been seen yet
       candidates = [candidate[0] for candidate in available if candidate[0] not in seen]
       for candidate in candidates:
         stack.append((candidate, path + [candidate]))
+        
+  write(filename, output)
+  return path
 
  
 def bfs(graph, start_node, end_node, step, args, filename):
@@ -69,6 +76,8 @@ def bfs(graph, start_node, end_node, step, args, filename):
   # Push the first path into the queue
   paths_queue.append([start_node])
 
+  # full_path = [start_node]
+
   output = ""
 
   # While there are paths to check
@@ -78,12 +87,13 @@ def bfs(graph, start_node, end_node, step, args, filename):
     # Get the last node in the current path
     current_node = current_path[-1]
     seen.append(current_node)
-
+    #full_path.append(current_node)
     output += step(copy.deepcopy(current_path), graph, args)
+
     # path found
-    if current_node == end_node:
-      write(filename, output)
-      return current_path
+    # if current_node == end_node:
+    #   write(filename, output)
+    #   return current_path
     
     available = sorted(graph[current_node], key=lambda x: x[0].letter)
 
@@ -93,3 +103,6 @@ def bfs(graph, start_node, end_node, step, args, filename):
     # Create a new path for each of the candidate nodes and append those paths to the queue
     for candidate in candidates:
       paths_queue.append(current_path + [candidate])
+
+  write(filename, output)
+  return current_path
