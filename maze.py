@@ -1,4 +1,3 @@
-import copy
 from graph import findNodeByLocation
 
 def createMatrix(file):
@@ -26,7 +25,6 @@ def getStartEnd(mat, graph):
     start = findNodeByLocation(graph, start)
     end = findNodeByLocation(graph, end)
 
-
     return start, end 
 
 
@@ -35,8 +33,9 @@ def get_maze_str(maze):
     return ''.join(lines)
 
 def get_maze(path, graph, maze):
-    maze = copy.deepcopy(maze)
-    output = ' -> '.join([p.letter for p in path]) + "\n"
+    # maze = copy.deepcopy(maze)
+    #output = ' -> '.join([p.letter for p in path]) + "\n"
+    output = ""
     while len(path) > 1:
         second = path.pop()
         first = path[-1]

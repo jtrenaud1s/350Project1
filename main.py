@@ -1,5 +1,6 @@
 
 
+import copy
 from search import bfs, dfs
 from graph import createGraph
 from maze import createMatrix, get_maze, getStartEnd
@@ -11,9 +12,9 @@ def run_maze(filename):
 
     print("Start: " + str(start))
     print("DFS", filename)
-    result_dfs = dfs(graph, start, end, get_maze, matrix, "output/dfs-" + filename)
+    result_dfs = dfs(graph, start, end, get_maze, copy.deepcopy(matrix), "output/dfs-" + filename)
     print("BFS", filename)
-    result_bfs = bfs(graph, start, end, get_maze, matrix, "output/bfs-" + filename)
+    result_bfs = bfs(graph, start, end, get_maze, copy.deepcopy(matrix), "output/bfs-" + filename)
 
 mazes = ["maze_1.txt", "maze_2.txt", "maze_3.txt"]
 
